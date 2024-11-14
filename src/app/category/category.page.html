@@ -1,0 +1,63 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-menu-button   slot="start" autoHide="false"></ion-menu-button>
+
+    <ion-title>category</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let cat of categories" (click)="openActionSheet(cat)">
+      <ion-item-sliding>
+        <ion-item>
+          <ion-label>
+            <h2>Nom: {{ cat.nomCat }}</h2>
+            <p> Boisson: {{ cat.boissons }}</p>
+       
+          </ion-label>
+        </ion-item>
+      
+      </ion-item-sliding>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="pending">
+    <ion-item *ngFor="let item of [1, 2, 3, 4]">
+      <ion-label>
+        <h2><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></h2>
+        <p><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="onAddCategorie()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-modal #modal [isOpen]="isOpenForm">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Ajouter un Categorie</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="onCancel()" color="primary">
+              <ion-icon slot="start" name="close" color="primary"></ion-icon>
+              Cancel
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-item>
+          <ion-label position="floating">Nom</ion-label>
+          <ion-input [(ngModel)]="categorie.nomCat"></ion-input>
+        </ion-item>
+        <ion-button expand="full" (click)="saveCategorie()">Enregistrer</ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>
